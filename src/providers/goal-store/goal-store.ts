@@ -1,5 +1,5 @@
-import { Storage } from '@ionic/storage';
-import { Injectable } from '@angular/core';
+import { Storage } from "@ionic/storage";
+import { Injectable } from "@angular/core";
 
 /*
   Generated class for the GoalStoreProvider provider.
@@ -10,16 +10,16 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class GoalStoreProvider {
 
-  constructor(public storage: Storage){
- 
+  constructor (public storage: Storage){
+
   }
- 
-  public getGoals() {
-    return this.storage.get('goals'); 
+
+  public getGoals () {
+    return this.storage.get("goals");
   }
- 
-  public save(goals){
-    this.storage.set('goals', goals);
+
+  public save (goals){
+    this.storage.set("goals", goals);
   }
 
 }
