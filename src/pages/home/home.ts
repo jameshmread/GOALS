@@ -55,4 +55,9 @@ export class HomePage {
     throw Error ("Not implemented yet");
   }
 
+  public deleteGoal (goal) {
+    this.items = this.items.filter((item) => item !== goal);
+    this.goalService.save(this.items);
+  }
+
 }

@@ -21,5 +21,4 @@ export class GoalStoreProvider {
   public save (goals){
     this.storage.set("goals", goals);
   }
-
 }
