@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
-import { NavParams } from "ionic-angular";
+import { NavParams, ViewController } from "ionic-angular";
+import { Goal } from "../../DTOs/Goal";
 
 @Component({
   selector: "goal-details",
@@ -12,7 +13,7 @@ export class GoalDetailsPage {
   public dateDue;
   public type;
 
-  constructor (public navParams: NavParams){
+  constructor (public navParams: NavParams, public view: ViewController){
 
   }
 
@@ -21,6 +22,15 @@ export class GoalDetailsPage {
     this.description = this.navParams.get("item").description;
     this.dateDue = this.navParams.get("item").dateTime;
     this.type = this.navParams.get("item").type;
+  }
+
+  public saveChanges () {
+    this.view.dismiss(new Goal(
+      this.title,
+      this.description,
+      this.dateDue,
+      this.type
+    ));
   }
 
 }
