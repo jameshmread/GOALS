@@ -11,7 +11,6 @@ import { Injectable } from "@angular/core";
 export class GoalStoreProvider {
 
   constructor (public storage: Storage){
-
   }
 
   public getGoals () {

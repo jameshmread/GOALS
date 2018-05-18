@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
 import { NavController, ViewController } from "ionic-angular";
+import { Goal } from "../../DTOs/Goal";
 
 @Component({
   selector: "add-goal",
@@ -17,15 +18,15 @@ export class AddGoalPage {
 
   public saveItem (){
 
-    const newItem = {
-      title: this.title,
-      description: this.description,
-      dateTime: this.dateTime,
-      type: this.type
-    };
+    const newGoal = new Goal(
+      this.title,
+      this.description,
+      this.dateTime,
+      this.type
+    );
 
-    if (newItem.title !== void 0) {
-      this.view.dismiss(newItem);
+    if (newGoal.title !== void 0) {
+      this.view.dismiss(newGoal);
     } else {
       this.close();
       // would be nice to have a toaster notification saying

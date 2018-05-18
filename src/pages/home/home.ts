@@ -14,7 +14,9 @@ export class HomePage {
 
   constructor (
     public navCtrl: NavController,
-    public modalCtrl: ModalController, public goalService: GoalStoreProvider) {
+    public modalCtrl: ModalController,
+    public goalService: GoalStoreProvider) {
+
     this.goalService.getGoals().then((todos) => {
 
       if (todos){
@@ -33,9 +35,9 @@ export class HomePage {
     const addModal = this.modalCtrl.create(AddGoalPage);
 
     addModal.onDidDismiss((item) => {
-          if (item){
-            this.saveItem(item);
-          }
+      if (item){
+        this.saveItem(item);
+      }
     });
 
     addModal.present();
@@ -48,7 +50,17 @@ export class HomePage {
   }
 
   public viewItem (item){
-    this.navCtrl.push(GoalDetailsPage, {item});
+    const editModal = this.modalCtrl.create(GoalDetailsPage, {item});
+
+    editModal.onDidDismiss((editedGoal) => {
+      if (editedGoal !== item && editedGoal !== void 0){
+        const index = this.items.indexOf(item);
+        this.items[index] = editedGoal;
+        this.goalService.save(this.items);
+      }
+    });
+
+    editModal.present();
   }
 
   public incrementCompletion () {
