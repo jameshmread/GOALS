@@ -1,20 +1,26 @@
 <ion-header>
   <ion-navbar color="secondary">
     <ion-title>
-      Todos!
+      My Goals
     </ion-title>
 
   </ion-navbar>
 </ion-header>
  
 <ion-content>
-    <ion-list *ngFor="let item of items" (press)="incrementCompletion()">
+    <ion-list *ngFor="let item of items" (click)="incrementCompletion(item)">
       <ion-item-sliding #slidingItem>
       <ion-item>
-        <ion-card>
+        <ion-card [class.completed-goal-card] = "item.currentCompletion >= item.maxCompletion">
           <ion-card-content class="card-title">{{item.title}}</ion-card-content>
           <ion-card-content class="card-description">{{item.description}}</ion-card-content>
           <ion-card-content class="card-description">{{item.dateTime}}</ion-card-content>
+            <div [class.not-started-goal] = "item.currentCompletion === 0"
+            [class.uncompleted-goal] = "item.currentCompletion > 0 && item.currentCompletion < item.maxCompletion"
+            [class.completed-goal] = "item.currentCompletion >= item.maxCompletion"
+            >
+              <p>Goal Progress: {{item.currentCompletion}} / {{item.maxCompletion}}</p>
+            </div>
         </ion-card>
       </ion-item>
       <ion-item-options side="left">
