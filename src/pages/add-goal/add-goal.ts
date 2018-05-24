@@ -12,17 +12,19 @@ export class AddGoalPage {
   public description: string;
   public dateTime;
   public type: string;
+  public maximumCompletion = 1;
+
   constructor (public navCtrl: NavController, public view: ViewController) {
 
   }
 
   public saveItem (){
-
     const newGoal = new Goal(
       this.title,
       this.description,
       this.dateTime,
-      this.type
+      this.type,
+      this.maximumCompletion
     );
 
     if (newGoal.title !== void 0) {

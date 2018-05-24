@@ -14,12 +14,12 @@
  
     <ion-item>
       <ion-label floating>Title</ion-label>
-      <ion-input type="text" [(ngModel)]="title"></ion-input>
+      <ion-input type="text" [(ngModel)]="title" clearInput="true"></ion-input>
     </ion-item>
  
     <ion-item>
       <ion-label floating>Description</ion-label>
-      <ion-input type="text" [(ngModel)]="description"></ion-input>
+      <ion-input type="text" [(ngModel)]="description" clearInput="true"></ion-input>
     </ion-item>
     
     <ion-item>
@@ -28,13 +28,18 @@
     </ion-item>
   
     <ion-item>
-        <ion-label floating>Goal Type</ion-label>
-        <ion-select [(ngModel)]="type">
-          <ion-option value="single">Single</ion-option>
-          <ion-option value="multiple">Multiple</ion-option>
-          <ion-option value="duration">Duration</ion-option>
-        </ion-select>
-      </ion-item>
+      <ion-label floating>Goal Type</ion-label>
+      <ion-select [(ngModel)]="type">
+        <ion-option value="single">Single</ion-option>
+        <ion-option value="multiple">Multiple</ion-option>
+        <ion-option value="duration">Duration</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item *ngIf="type === 'multiple'">
+      <ion-label floating>Maximum Number of Goal Increments</ion-label>      
+      <ion-input [(ngModel)]="maximumCompletion" type="number"></ion-input>
+    </ion-item>
  
   </ion-list>
  
