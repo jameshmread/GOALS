@@ -3,6 +3,7 @@ import { NavController, ModalController } from "ionic-angular";
 import { AddGoalPage } from "../add-goal/add-goal";
 import { GoalDetailsPage } from "../goal-details/goal-details";
 import { GoalStoreProvider } from "../../providers/goal-store/goal-store";
+import { Goal } from "../../DTOs/Goal";
 
 @Component({
   selector: "page-home",
@@ -10,19 +11,16 @@ import { GoalStoreProvider } from "../../providers/goal-store/goal-store";
 })
 export class HomePage {
 
-  public items = [];
-
+  public items: Array<Goal> = [];
   constructor (
     public navCtrl: NavController,
     public modalCtrl: ModalController,
     public goalService: GoalStoreProvider) {
 
     this.goalService.getGoals().then((todos) => {
-
       if (todos){
         this.items = todos;
       }
-
     });
   }
 
@@ -31,25 +29,21 @@ export class HomePage {
   }
 
   public addItem (){
-
     const addModal = this.modalCtrl.create(AddGoalPage);
-
     addModal.onDidDismiss((item) => {
       if (item){
         this.saveItem(item);
       }
     });
-
     addModal.present();
-
   }
 
-  public saveItem (item){
+  public saveItem (item: Goal){
     this.items.push(item);
     this.goalService.save(this.items);
   }
 
-  public viewItem (item){
+  public viewItem (item: Goal){
     const editModal = this.modalCtrl.create(GoalDetailsPage, {item});
 
     editModal.onDidDismiss((editedGoal) => {
@@ -63,13 +57,15 @@ export class HomePage {
     editModal.present();
   }
 
-  public incrementCompletion () {
-    throw Error ("Not implemented yet");
+  public incrementCompletion (item: Goal) {
+    const index = this.items.indexOf(item);
+    if (this.items[index].currentCompletion < this.items[index].maxCompletion) {
+      this.items[index].currentCompletion++;
+    }
   }
 
-  public deleteGoal (goal) {
+  public deleteGoal (goal: Goal) {
     this.items = this.items.filter((item) => item !== goal);
     this.goalService.save(this.items);
   }
-
 }
