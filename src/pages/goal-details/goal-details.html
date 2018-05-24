@@ -22,16 +22,6 @@
                 <ion-datetime displayFormat="DD MMMM YYYY" [(ngModel)]="dateDue"></ion-datetime>
               </ion-item>
         </ion-card-content>
-      <ion-card-header>Goal Type</ion-card-header>
-        <ion-card-content>
-            <ion-item>
-                <ion-select [(ngModel)]="type">
-                  <ion-option value="single">Single</ion-option>
-                  <ion-option value="multiple">Multiple</ion-option>
-                  <ion-option value="duration">Duration</ion-option>
-                </ion-select>
-              </ion-item>
-        </ion-card-content>
   </ion-card>
   <button full ion-button large color="secondary" (click)="saveChanges()">Save Changes</button>
 </ion-content>

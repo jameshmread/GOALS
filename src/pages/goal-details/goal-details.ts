@@ -12,7 +12,7 @@ export class GoalDetailsPage {
   public description;
   public dateDue;
   public type;
-
+  private maxCompletion;
   constructor (public navParams: NavParams, public view: ViewController){
 
   }
@@ -22,6 +22,7 @@ export class GoalDetailsPage {
     this.description = this.navParams.get("item").description;
     this.dateDue = this.navParams.get("item").dateTime;
     this.type = this.navParams.get("item").type;
+    this.maxCompletion = this.navParams.get("item").maxCompletion;
   }
 
   public saveChanges () {
@@ -29,7 +30,8 @@ export class GoalDetailsPage {
       this.title,
       this.description,
       this.dateDue,
-      this.type
+      this.type,
+      this.maxCompletion
     ));
   }
 
