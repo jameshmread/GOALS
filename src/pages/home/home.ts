@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { NavController, ModalController } from "ionic-angular";
+import { NavController, ModalController, ToastController } from "ionic-angular";
 import { AddGoalPage } from "../add-goal/add-goal";
 import { GoalDetailsPage } from "../goal-details/goal-details";
 import { GoalStoreProvider } from "../../providers/goal-store/goal-store";
@@ -15,7 +15,9 @@ export class HomePage {
   constructor (
     public navCtrl: NavController,
     public modalCtrl: ModalController,
-    public goalService: GoalStoreProvider) {
+    public goalService: GoalStoreProvider,
+    public toast: ToastController
+  ) {
 
     this.goalService.getGoals().then((todos) => {
       if (todos){
@@ -33,9 +35,23 @@ export class HomePage {
     addModal.onDidDismiss((item) => {
       if (item){
         this.saveItem(item);
+      } else {
+        this.itemFailedToAdd();
       }
     });
     addModal.present();
+  }
+
+  public itemFailedToAdd () {
+      const toast = this.toast.create({
+        message: "Goal Not Saved.",
+        duration: 3000,
+        position: "top"
+      });
+      toast.onDidDismiss(() => {
+        console.log("Dismissed toast");
+      });
+      toast.present();
   }
 
   public saveItem (item: Goal){
