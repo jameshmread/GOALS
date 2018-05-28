@@ -1,0 +1,19 @@
+ion-card-header {
+    text-align: center;
+    font-size: 1em;
+}
+
+.day {
+    width: 1.5em;
+    border-radius: 20em;
+    background-color: map-get($colors, secondary);
+}
+
+.months {
+    text-align: left;
+}
+
+.no-padding {
+    padding: 0px;
+    margin: 0px;
+ }

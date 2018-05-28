@@ -10,13 +10,16 @@ import { HomePage } from "../pages/home/home";
 import { AddGoalPage } from "../pages/add-goal/add-goal";
 import { GoalDetailsPage } from "../pages/goal-details/goal-details";
 import { GoalStoreProvider } from "../providers/goal-store/goal-store";
+import { CalendarPage } from "../pages/calendar/calendar";
+import { Calendar } from "@ionic-native/calendar";
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     AddGoalPage,
-    GoalDetailsPage
+    GoalDetailsPage,
+    CalendarPage
   ],
   imports: [
     BrowserModule,
@@ -28,14 +31,16 @@ import { GoalStoreProvider } from "../providers/goal-store/goal-store";
     MyApp,
     HomePage,
     AddGoalPage,
-    GoalDetailsPage
+    GoalDetailsPage,
+    CalendarPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     GoalStoreProvider,
-    ToastController
+    ToastController,
+    Calendar
   ]
 })
 export class AppModule {}

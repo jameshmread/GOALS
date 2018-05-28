@@ -1,0 +1,39 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Calendar</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-card style="padding-bottom: 50px;">
+    <ion-card-header>{{currentYear}}</ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col class="col-md-1 months no-padding" *ngFor="let month of months">
+            {{month}}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col style="padding-top: 0px;">
+            <ion-row *ngFor="let day of weekDays">
+              {{day}}
+            </ion-row>
+          </ion-col>
+          <ion-col class="no-padding" *ngFor="let day of days">
+            <ion-row class="day no-padding" *ngFor="let day of weekDays">
+              <ion-card>
+              </ion-card>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>
