@@ -4,6 +4,7 @@ import { AddGoalPage } from "../add-goal/add-goal";
 import { GoalDetailsPage } from "../goal-details/goal-details";
 import { GoalStoreProvider } from "../../providers/goal-store/goal-store";
 import { Goal } from "../../DTOs/Goal";
+import { CalendarPage } from "../calendar/calendar";
 
 @Component({
   selector: "page-home",
@@ -18,7 +19,6 @@ export class HomePage {
     public goalService: GoalStoreProvider,
     public toast: ToastController
   ) {
-
     this.goalService.getGoals().then((todos) => {
       if (todos){
         this.items = todos;
@@ -83,5 +83,9 @@ export class HomePage {
   public deleteGoal (goal: Goal) {
     this.items = this.items.filter((item) => item !== goal);
     this.goalService.save(this.items);
+  }
+
+  public showCalendar () {
+    this.navCtrl.push(CalendarPage);
   }
 }
