@@ -25,10 +25,12 @@
               {{day}}
             </ion-row>
           </ion-col>
-          <ion-col class="no-padding" *ngFor="let day of days">
-            <ion-row class="day no-padding" *ngFor="let day of weekDays">
-              <ion-card>
-              </ion-card>
+          <ion-col class="no-padding" *ngFor="let week of days">
+            <ion-row class="day no-padding"
+            [class.all-complete] = "day.completionState === 'all'"
+            [class.some-complete] = "day.completionState === 'partial'"
+            [class.none-complete] = "day.completionState === 'none'" *ngFor="let day of week">
+            <ion-card class="day"></ion-card>
             </ion-row>
           </ion-col>
         </ion-row>

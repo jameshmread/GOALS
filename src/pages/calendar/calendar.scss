@@ -6,8 +6,18 @@ ion-card-header {
 .day {
     width: 1.5em;
     border-radius: 20em;
+    
+}
+.all-complete {
     background-color: map-get($colors, secondary);
 }
+.some-complete {
+    background-color: map-get($colors, primary);
+}
+.none-complete {
+    background-color: map-get($colors, danger);
+}
+
 
 .months {
     text-align: left;
