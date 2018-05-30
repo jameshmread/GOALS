@@ -10,10 +10,9 @@ export class AddGoalPage {
 
   public title: string;
   public description: string;
-  public dateTime;
   public type: string;
   public maximumCompletion = 1;
-
+  public repeatInterval: string;
   constructor (public navCtrl: NavController, public view: ViewController) {
 
   }
@@ -22,7 +21,7 @@ export class AddGoalPage {
     const newGoal = new Goal(
       this.title,
       this.description,
-      this.dateTime,
+      new Date(),
       this.type,
       this.maximumCompletion
     );
@@ -31,8 +30,6 @@ export class AddGoalPage {
       this.view.dismiss(newGoal);
     } else {
       this.close();
-      // would be nice to have a toaster notification saying
-      // that no title existed so no goal was made.
     }
 
   }

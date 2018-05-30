@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar color="secondary">
     <ion-title>
-      Add New Goal
+      Add New Goal for Today
     </ion-title>
       <ion-buttons end>
         <button ion-button large icon-only (click)="close()"><ion-icon name="close"></ion-icon></button>
@@ -21,11 +21,6 @@
       <ion-label floating>Description</ion-label>
       <ion-input type="text" [(ngModel)]="description" clearInput="true"></ion-input>
     </ion-item>
-    
-    <ion-item>
-      <ion-label floating>Start Time</ion-label>
-      <ion-datetime displayFormat="DD MMMM YYYY" [(ngModel)]="dateTime"></ion-datetime>
-    </ion-item>
   
     <ion-item>
       <ion-label floating>Goal Type</ion-label>
@@ -38,7 +33,15 @@
 
     <ion-item *ngIf="type === 'multiple'">
       <ion-label floating>Maximum Number of Goal Increments</ion-label>      
-      <ion-input [(ngModel)]="maximumCompletion" type="number"></ion-input>
+      <ion-input [(ngModel)]="maximumCompletion" min="1" type="number"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Repeat Interval</ion-label>
+      <ion-select [(ngModel)]="repeatInterval">
+          <ion-option value="daily">Repeat Daily</ion-option>
+          <ion-option value="weekly">Repeat Weekly</ion-option>
+        </ion-select>
     </ion-item>
  
   </ion-list>
