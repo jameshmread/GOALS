@@ -1,5 +1,6 @@
 import { Storage } from "@ionic/storage";
 import { Injectable } from "@angular/core";
+import { Day } from "../../DTOs/Day";
 
 /*
   Generated class for the GoalStoreProvider provider.
@@ -19,5 +20,13 @@ export class GoalStoreProvider {
 
   public save (goals){
     this.storage.set("goals", goals);
+  }
+
+  public saveDays (days: Day) {
+    this.storage.set("days", days);
+  }
+
+  public getDays () {
+    this.storage.get("days");
   }
 }
