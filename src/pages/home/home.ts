@@ -27,7 +27,6 @@ export class HomePage {
   }
 
   public ionViewDidLoad (){
-
   }
 
   public addItem (){
@@ -87,5 +86,9 @@ export class HomePage {
 
   public showCalendar () {
     this.navCtrl.push(CalendarPage);
+  }
+
+  public deleteDB () {
+    this.goalService.storage.clear();
   }
 }
