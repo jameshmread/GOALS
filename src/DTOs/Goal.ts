@@ -3,7 +3,7 @@ export class Goal {
     constructor (
         public title: string,
         public description: string,
-        public dateTime: string,
+        public dateTime: Date,
         public type: string,
         public maxCompletion: number
     ) {}
