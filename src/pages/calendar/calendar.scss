@@ -6,7 +6,7 @@ ion-card-header {
 .day {
     width: 1.5em;
     border-radius: 20em;
-    
+    background-color: grey;
 }
 .all-complete {
     background-color: map-get($colors, secondary);
