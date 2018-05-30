@@ -12,6 +12,7 @@ import { GoalDetailsPage } from "../pages/goal-details/goal-details";
 import { GoalStoreProvider } from "../providers/goal-store/goal-store";
 import { CalendarPage } from "../pages/calendar/calendar";
 import { Calendar } from "@ionic-native/calendar";
+import { DaySummaryPage } from "../pages/day-summary/day-summary";
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { Calendar } from "@ionic-native/calendar";
     HomePage,
     AddGoalPage,
     GoalDetailsPage,
-    CalendarPage
+    CalendarPage,
+    DaySummaryPage
   ],
   imports: [
     BrowserModule,
@@ -32,7 +34,8 @@ import { Calendar } from "@ionic-native/calendar";
     HomePage,
     AddGoalPage,
     GoalDetailsPage,
-    CalendarPage
+    CalendarPage,
+    DaySummaryPage
   ],
   providers: [
     StatusBar,

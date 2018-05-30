@@ -29,7 +29,9 @@
             <ion-row class="day no-padding"
             [class.all-complete] = "day.completionState === 'all'"
             [class.some-complete] = "day.completionState === 'partial'"
-            [class.none-complete] = "day.completionState === 'none'" *ngFor="let day of week">
+            [class.none-complete] = "day.completionState === 'none'"
+            *ngFor="let day of week"
+            (click)="openDaySummary(day)">
             <ion-card class="day"></ion-card>
             </ion-row>
           </ion-col>

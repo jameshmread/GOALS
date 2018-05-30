@@ -3,6 +3,7 @@ import { NavController, NavParams } from "ionic-angular";
 import { Calendar } from "@ionic-native/calendar";
 import { Day } from "../../DTOs/Day";
 import { DayCompletionState } from "../../enums/DayCompletionState";
+import { DaySummaryPage } from "../day-summary/day-summary";
 
 @Component({
   selector: "page-calendar",
@@ -23,6 +24,10 @@ export class CalendarPage {
     console.log("ionViewDidLoad CalendarPage");
   }
 
+  public openDaySummary (day: Day) {
+    this.navCtrl.push(DaySummaryPage, {day});
+  }
+
   private createEmptyYear () {
     this.days = new Array(52);
     for (let i = 0; i < 52; i++) {
@@ -34,7 +39,4 @@ export class CalendarPage {
     }
     console.table(this.days);
   }
-
-  // TODO there needs to be a 2D array of days in weeks
-  // which can be filled with the appropriate colour etc.
 }
