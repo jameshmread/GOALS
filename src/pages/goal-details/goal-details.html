@@ -12,15 +12,9 @@
         <ion-card-content>
           <ion-item>
             <ion-input
-                [(ngModel)]="description" type="text">
+                [(ngModel)]="description" type="text" placeholder="Goal Description">
             </ion-input>
           </ion-item>
-        </ion-card-content>
-      <ion-card-header>Date Due</ion-card-header>
-        <ion-card-content>
-            <ion-item>
-                <ion-datetime displayFormat="DD MMMM YYYY" [(ngModel)]="dateDue"></ion-datetime>
-              </ion-item>
         </ion-card-content>
   </ion-card>
   <button full ion-button large color="secondary" (click)="saveChanges()">Save Changes</button>
