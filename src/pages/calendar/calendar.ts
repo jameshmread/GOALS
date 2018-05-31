@@ -22,11 +22,11 @@ export class CalendarPage {
     public store: GoalStoreProvider
   ) {
     this.createEmptyYear();
-    this.setDayInformation();
   }
 
   public ionViewDidLoad () {
     console.log("ionViewDidLoad CalendarPage");
+    this.setDayInformation();
   }
 
   public openDaySummary (day: Day) {
@@ -47,10 +47,11 @@ export class CalendarPage {
   }
 
   private setDayInformation () {
-    this.store.saveDays(this.store.createFakeDays());
-    this.store.getDays().then((allDays) => {
+    // this.store.saveDays(this.store.createFakeDays());
+    this.store.getDays().then((allDays: Array<Day>) => {
       console.log(allDays);
       let savedDaysIndex = 0;
+      if (allDays === null) { return; }
       for (let i = 0; i < 52; i++) {
         for (let j = 0; j < 7; j++) {
           if (allDays[savedDaysIndex] !== void 0) {

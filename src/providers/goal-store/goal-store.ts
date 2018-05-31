@@ -31,7 +31,7 @@ export class GoalStoreProvider {
       });
   }
 
-  public save (goals: Array<Goal>){
+  public saveGoals (goals: Array<Goal>){
     this.storage.set("goals", goals);
   }
 
@@ -39,7 +39,7 @@ export class GoalStoreProvider {
     this.storage.set("days", days);
   }
 
-  public getDays () {
+  public getDays (): Promise<Array<Day>> {
     return this.storage.get("days");
   }
 
@@ -48,17 +48,20 @@ export class GoalStoreProvider {
     day1.incrementGoalsCreated();
     day1.incrementGoalsCompleted();
     day1.setDate(new Date(2018, 0, 1));
-    day1.setGoaltitles(["Title1", "Title2"]);
+    day1.addGoalTitle("Title1");
+    day1.addGoalTitle("Title2");
     const day2 = new Day();
     day2.incrementGoalsCreated();
     day2.incrementGoalsCreated();
     day2.setDate(new Date(2018, 0, 2));
-    day2.setGoaltitles(["TitleA", "TitleN"]);
+    day2.addGoalTitle("TitleA");
+    day2.addGoalTitle("TitleB");
     const day3 = new Day();
     day3.incrementGoalsCreated();
     day3.incrementGoalsInProgress();
     day3.setDate(new Date(2018, 6, 5));
-    day3.setGoaltitles(["TitleA", "TitleN"]);
+    day3.addGoalTitle("TitleA");
+    day3.addGoalTitle("TitleB");
     return [day1, day2, day3];
   }
 }

@@ -5,6 +5,7 @@ import { GoalDetailsPage } from "../goal-details/goal-details";
 import { GoalStoreProvider } from "../../providers/goal-store/goal-store";
 import { Goal } from "../../DTOs/Goal";
 import { CalendarPage } from "../calendar/calendar";
+import { Day } from "../../DTOs/Day";
 
 @Component({
   selector: "page-home",
@@ -13,23 +14,16 @@ import { CalendarPage } from "../calendar/calendar";
 export class HomePage {
 
   public goals: Array<Goal> = [];
+  public days: Array<Day> = [];
+
   constructor (
     public navCtrl: NavController,
     public modalCtrl: ModalController,
     public goalService: GoalStoreProvider,
     public toast: ToastController
   ) {
-    this.goalService.getTodaysGoals().then((retrievedGoals) => {
-      if (retrievedGoals.length !== 0){
-        console.log(retrievedGoals);
-        this.goals = retrievedGoals;
-      } else {
-        this.noGoalsFound_Toast();
-      }
-    });
-  }
-
-  public ionViewDidLoad (){
+    this.getGoalList();
+    this.getDayList();
   }
 
   public addGoal (){
@@ -37,6 +31,7 @@ export class HomePage {
     addModal.onDidDismiss((goal: Goal) => {
       if (goal){
         this.goals.push(goal);
+        this.addGoalToToday(goal.title);
         this.saveGoalsToStorage();
       } else {
         this.goalFailedToAdd_Toast();
@@ -52,7 +47,7 @@ export class HomePage {
       if (editedGoal !== goal && editedGoal !== void 0){
         const index = this.goals.indexOf(goal);
         this.goals[index] = editedGoal;
-        this.goalService.save(this.goals);
+        this.goalService.saveGoals(this.goals);
       }
     });
 
@@ -64,12 +59,12 @@ export class HomePage {
     if (this.goals[index].currentCompletion < this.goals[index].maxCompletion) {
       this.goals[index].currentCompletion++;
     }
-    this.saveGoalsToStorage()
+    this.saveGoalsToStorage();
   }
 
   public deleteGoal (goal: Goal) {
     this.goals = this.goals.filter((item) => item !== goal);
-    this.goalService.save(this.goals);
+    this.goalService.saveGoals(this.goals);
   }
 
   public showCalendar () {
@@ -81,7 +76,7 @@ export class HomePage {
   }
 
   private saveGoalsToStorage (){
-    this.goalService.save(this.goals);
+    this.goalService.saveGoals(this.goals);
   }
 
   private goalFailedToAdd_Toast () {
@@ -106,5 +101,65 @@ export class HomePage {
       console.log("Dismissed toast");
     });
     toast.present();
-}
+  }
+
+  private addGoalToToday (goalTitle: string) {
+    let newDay: Day;
+    let today: Day;
+    if (this.days !== null) {
+      today = this.days.filter((day) => {
+        if (day.date.getDate() === new Date().getDate()) {
+          return day;
+        }
+      })[0];
+    }
+    if (today === void 0) {
+      newDay = new Day();
+      const date = new Date();
+      date.setHours(0, 0, 0, 0);
+      newDay.setDate(date);
+      newDay.incrementGoalsCreated();
+      newDay.addGoalTitle(goalTitle);
+      console.log(this.days);
+      this.addDayToList(newDay);
+      return;
+    } else {
+      newDay = today;
+      newDay.incrementGoalsCreated();
+      newDay.addGoalTitle(goalTitle);
+      this.editDayInList(today, newDay);
+    }
+    this.saveDaysToStorage();
+  }
+
+  private getGoalList () {
+    this.goalService.getTodaysGoals().then((retrievedGoals) => {
+      if (retrievedGoals.length !== 0){
+        console.log(retrievedGoals);
+        this.goals = retrievedGoals;
+      } else {
+        this.noGoalsFound_Toast();
+      }
+    });
+  }
+
+  private getDayList () {
+    this.goalService.getDays().then((days: Array<Day>) => {
+      if (days !== void 0 && days !== null) {
+        this.days = days;
+      }
+    });
+  }
+
+  private saveDaysToStorage () {
+    this.goalService.saveDays(this.days);
+  }
+
+  private editDayInList (dayToEdit: Day, editedDay: Day) {
+    this.days[this.days.indexOf(dayToEdit)] = editedDay;
+  }
+
+  private addDayToList (newDay: Day) {
+    this.days.push(newDay);
+  }
 }

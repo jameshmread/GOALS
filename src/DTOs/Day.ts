@@ -1,12 +1,13 @@
 import { DayCompletionState } from "../enums/DayCompletionState";
 
 export class Day {
+    public date: Date;
+
     private completionState: DayCompletionState;
     private goalsCreated = 0;
     private goalsCompleted = 0;
     private goalsInProgress = 0;
-    private goalTitles: Array<string>;
-    private date: Date;
+    private goalTitles: Array<string> = [];
 
     constructor () {}
 
@@ -48,8 +49,8 @@ export class Day {
         this.setCompletionState();
     }
 
-    public setGoaltitles (goalTitles: Array<string>) {
-        this.goalTitles = goalTitles;
+    public addGoalTitle (goalTitle: string) {
+        this.goalTitles.push(goalTitle);
     }
 
     public getGoaltitles () {
@@ -60,7 +61,7 @@ export class Day {
         this.date = date;
     }
 
-    public getDate () {
+    public getDate (): Date {
         return this.date;
     }
 
