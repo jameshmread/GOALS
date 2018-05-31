@@ -19,9 +19,12 @@ export class HomePage {
     public goalService: GoalStoreProvider,
     public toast: ToastController
   ) {
-    this.goalService.getGoals().then((todos) => {
-      if (todos){
-        this.goals = todos;
+    this.goalService.getTodaysGoals().then((retrievedGoals) => {
+      if (retrievedGoals.length !== 0){
+        console.log(retrievedGoals);
+        this.goals = retrievedGoals;
+      } else {
+        this.noGoalsFound_Toast();
       }
     });
   }
@@ -31,26 +34,15 @@ export class HomePage {
 
   public addGoal (){
     const addModal = this.modalCtrl.create(AddGoalPage);
-    addModal.onDidDismiss((item) => {
-      if (item){
-        this.saveGoal(item);
+    addModal.onDidDismiss((goal: Goal) => {
+      if (goal){
+        this.goals.push(goal);
+        this.saveGoalsToStorage();
       } else {
-        this.goalFailedToAdd();
+        this.goalFailedToAdd_Toast();
       }
     });
     addModal.present();
-  }
-
-  public goalFailedToAdd () {
-      const toast = this.toast.create({
-        message: "Goal Not Saved.",
-        duration: 3000,
-        position: "top"
-      });
-      toast.onDidDismiss(() => {
-        console.log("Dismissed toast");
-      });
-      toast.present();
   }
 
   public editGoal (goal: Goal){
@@ -72,6 +64,7 @@ export class HomePage {
     if (this.goals[index].currentCompletion < this.goals[index].maxCompletion) {
       this.goals[index].currentCompletion++;
     }
+    this.saveGoalsToStorage()
   }
 
   public deleteGoal (goal: Goal) {
@@ -87,8 +80,31 @@ export class HomePage {
     this.goalService.storage.clear();
   }
 
-  private saveGoal (item: Goal){
-    this.goals.push(item);
+  private saveGoalsToStorage (){
     this.goalService.save(this.goals);
   }
+
+  private goalFailedToAdd_Toast () {
+    const toast = this.toast.create({
+      message: "Goal Not Saved.",
+      duration: 3000,
+      position: "top"
+    });
+    toast.onDidDismiss(() => {
+      console.log("Dismissed toast");
+    });
+    toast.present();
+  }
+
+  private noGoalsFound_Toast () {
+    const toast = this.toast.create({
+      message: "No Goals Found, Create Some For Today.",
+      duration: 4500,
+      position: "top"
+    });
+    toast.onDidDismiss(() => {
+      console.log("Dismissed toast");
+    });
+    toast.present();
+}
 }
