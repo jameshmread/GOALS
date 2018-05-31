@@ -20,8 +20,8 @@ export class GoalStoreProvider {
     return this.storage.get("goals");
   }
 
-  public getTodaysGoals () {
-    this.getGoals().then((goals) => {
+  public getTodaysGoals (): Promise<Array<Goal>> {
+    return this.getGoals().then((goals) => {
     return goals.filter((goal) => {
         return goal.dateTime.getDate() === new Date().getDate();
       });
