@@ -10,20 +10,18 @@ export class Day {
 
     constructor () {}
 
-    public setCompletionState (state: DayCompletionState) {
-        this.completionState = state;
-    }
-
     public getCompletionState () {
         return this.completionState;
     }
 
     public incrementGoalsCreated () {
         this.goalsCreated++;
+        this.setCompletionState();
     }
 
     public decrementGoalsCreated () {
         this.goalsCreated--;
+        this.setCompletionState();
     }
 
     public getGoalsCreated () {
@@ -32,18 +30,22 @@ export class Day {
 
     public incrementGoalsCompleted () {
         this.goalsCompleted++;
+        this.setCompletionState();
     }
 
     public decrementGoalsCompleted () {
         this.goalsCompleted--;
+        this.setCompletionState();
     }
 
     public incrementGoalsInProgress () {
         this.goalsInProgress++;
+        this.setCompletionState();
     }
 
     public decrementGoalsInProgress () {
         this.goalsInProgress--;
+        this.setCompletionState();
     }
 
     public setGoaltitles (goalTitles: Array<string>) {
@@ -60,5 +62,15 @@ export class Day {
 
     public getDate () {
         return this.date;
+    }
+
+    private setCompletionState () {
+        if (this.goalsCreated === this.goalsCompleted && this.goalsCreated > 0) {
+            this.completionState = DayCompletionState.allComplete;
+        } else if (this.goalsCompleted > 0) {
+            this.completionState = DayCompletionState.partiallyComplete;
+        } else {
+            this.completionState = DayCompletionState.noneStarted;
+        }
     }
 }
