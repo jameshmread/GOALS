@@ -17,7 +17,7 @@ export class AddGoalPage {
 
   }
 
-  public saveItem (){
+  public saveGoal (){
     const newGoal = new Goal(
       this.title,
       this.description,
