@@ -2,6 +2,7 @@ import { Storage } from "@ionic/storage";
 import { Injectable } from "@angular/core";
 import { Day } from "../../DTOs/Day";
 import { DayCompletionState } from "../../enums/DayCompletionState";
+import { Goal } from "../../DTOs/Goal";
 
 /*
   Generated class for the GoalStoreProvider provider.
@@ -15,11 +16,11 @@ export class GoalStoreProvider {
   constructor (public storage: Storage){
   }
 
-  public getGoals () {
+  public getGoals (): Promise<Array<Goal>> {
     return this.storage.get("goals");
   }
 
-  public save (goals){
+  public save (goals: Array<Goal>){
     this.storage.set("goals", goals);
   }
 

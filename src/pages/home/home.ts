@@ -12,7 +12,7 @@ import { CalendarPage } from "../calendar/calendar";
 })
 export class HomePage {
 
-  public items: Array<Goal> = [];
+  public goals: Array<Goal> = [];
   constructor (
     public navCtrl: NavController,
     public modalCtrl: ModalController,
@@ -21,7 +21,7 @@ export class HomePage {
   ) {
     this.goalService.getGoals().then((todos) => {
       if (todos){
-        this.items = todos;
+        this.goals = todos;
       }
     });
   }
@@ -29,19 +29,19 @@ export class HomePage {
   public ionViewDidLoad (){
   }
 
-  public addItem (){
+  public addGoal (){
     const addModal = this.modalCtrl.create(AddGoalPage);
     addModal.onDidDismiss((item) => {
       if (item){
-        this.saveItem(item);
+        this.saveGoal(item);
       } else {
-        this.itemFailedToAdd();
+        this.goalFailedToAdd();
       }
     });
     addModal.present();
   }
 
-  public itemFailedToAdd () {
+  public goalFailedToAdd () {
       const toast = this.toast.create({
         message: "Goal Not Saved.",
         duration: 3000,
@@ -53,35 +53,30 @@ export class HomePage {
       toast.present();
   }
 
-  public saveItem (item: Goal){
-    this.items.push(item);
-    this.goalService.save(this.items);
-  }
-
-  public viewItem (item: Goal){
-    const editModal = this.modalCtrl.create(GoalDetailsPage, {item});
+  public editGoal (goal: Goal){
+    const editModal = this.modalCtrl.create(GoalDetailsPage, {goal});
 
     editModal.onDidDismiss((editedGoal) => {
-      if (editedGoal !== item && editedGoal !== void 0){
-        const index = this.items.indexOf(item);
-        this.items[index] = editedGoal;
-        this.goalService.save(this.items);
+      if (editedGoal !== goal && editedGoal !== void 0){
+        const index = this.goals.indexOf(goal);
+        this.goals[index] = editedGoal;
+        this.goalService.save(this.goals);
       }
     });
 
     editModal.present();
   }
 
-  public incrementCompletion (item: Goal) {
-    const index = this.items.indexOf(item);
-    if (this.items[index].currentCompletion < this.items[index].maxCompletion) {
-      this.items[index].currentCompletion++;
+  public incrementCompletion (goal: Goal) {
+    const index = this.goals.indexOf(goal);
+    if (this.goals[index].currentCompletion < this.goals[index].maxCompletion) {
+      this.goals[index].currentCompletion++;
     }
   }
 
   public deleteGoal (goal: Goal) {
-    this.items = this.items.filter((item) => item !== goal);
-    this.goalService.save(this.items);
+    this.goals = this.goals.filter((item) => item !== goal);
+    this.goalService.save(this.goals);
   }
 
   public showCalendar () {
@@ -90,5 +85,10 @@ export class HomePage {
 
   public deleteDB () {
     this.goalService.storage.clear();
+  }
+
+  private saveGoal (item: Goal){
+    this.goals.push(item);
+    this.goalService.save(this.goals);
   }
 }

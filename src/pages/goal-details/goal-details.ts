@@ -18,11 +18,11 @@ export class GoalDetailsPage {
   }
 
   public ionViewDidLoad () {
-    this.title = this.navParams.get("item").title;
-    this.description = this.navParams.get("item").description;
-    this.dateDue = this.navParams.get("item").dateTime;
-    this.type = this.navParams.get("item").type;
-    this.maxCompletion = this.navParams.get("item").maxCompletion;
+    this.title = this.navParams.get("goal").title;
+    this.description = this.navParams.get("goal").description;
+    this.dateDue = this.navParams.get("goal").dateTime;
+    this.type = this.navParams.get("goal").type;
+    this.maxCompletion = this.navParams.get("goal").maxCompletion;
   }
 
   public saveChanges () {
