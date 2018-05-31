@@ -34,7 +34,7 @@ export class CalendarPage {
   }
 
   private createEmptyYear () {
-    let startDate = new Date(new Date().getFullYear(), 0, 1);
+    let startDate = new Date(new Date().getFullYear(), 0, 0);
     this.days = new Array(52);
     for (let i = 0; i < 52; i++) {
       this.days[i] = new Array(7);
@@ -54,11 +54,11 @@ export class CalendarPage {
       for (let i = 0; i < 52; i++) {
         for (let j = 0; j < 7; j++) {
           if (allDays[savedDaysIndex] !== void 0) {
-            if (this.days[i][j].getDate().getUTCMilliseconds() === allDays[savedDaysIndex].date.getUTCMilliseconds()){
+            if (new Date(this.days[i][j].getDate()).getTime() ===
+              new Date (allDays[savedDaysIndex].date).getTime()){
               this.days[i][j] = allDays[savedDaysIndex];
               savedDaysIndex++;
             }
-            // days are not allocated to the correct date on the grid
           }
         }
       }

@@ -48,8 +48,8 @@ export class GoalStoreProvider {
     day3.setCompletionState(DayCompletionState.partiallyComplete);
     day3.incrementGoalsCreated();
     day3.incrementGoalsInProgress();
-    day3.setDate(new Date(2018, 0, 4));
+    day3.setDate(new Date(2018, 6, 5));
     day3.setGoaltitles(["TitleA", "TitleN"]);
-    return [day2, day3];
+    return [day1, day2, day3];
   }
 }
