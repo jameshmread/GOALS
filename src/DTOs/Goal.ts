@@ -1,4 +1,6 @@
-export class Goal {
+import { IGoal } from "../interfaces/IGoal";
+
+export class Goal implements IGoal {
     public currentCompletion = 0;
     constructor (
         public title: string,

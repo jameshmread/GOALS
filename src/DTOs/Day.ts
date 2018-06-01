@@ -1,77 +1,36 @@
 import { DayCompletionState } from "../enums/DayCompletionState";
+import { IDay } from "../interfaces/IDay";
+import { Goal } from "./Goal";
 
-export class Day {
+export class Day implements IDay {
+
+
     public date: Date;
+    public completionState: DayCompletionState;
+    public goals: Array<Goal> = [];
 
-    private completionState: DayCompletionState;
-    private goalsCreated = 0;
-    private goalsCompleted = 0;
-    private goalsInProgress = 0;
-    private goalTitles: Array<string> = [];
-
-    constructor () {}
-
-    public getCompletionState () {
+    public getCompletionState (): DayCompletionState {
+        this.setCompletionState();
         return this.completionState;
     }
 
-    public incrementGoalsCreated () {
-        this.goalsCreated++;
-        this.setCompletionState();
-    }
-
-    public decrementGoalsCreated () {
-        this.goalsCreated--;
-        this.setCompletionState();
-    }
-
-    public getGoalsCreated () {
-        return this.goalsCreated;
-    }
-
-    public incrementGoalsCompleted () {
-        this.goalsCompleted++;
-        this.setCompletionState();
-    }
-
-    public decrementGoalsCompleted () {
-        this.goalsCompleted--;
-        this.setCompletionState();
-    }
-
-    public incrementGoalsInProgress () {
-        this.goalsInProgress++;
-        this.setCompletionState();
-    }
-
-    public decrementGoalsInProgress () {
-        this.goalsInProgress--;
-        this.setCompletionState();
-    }
-
-    public addGoalTitle (goalTitle: string) {
-        this.goalTitles.push(goalTitle);
-    }
-
-    public getGoaltitles () {
-        return this.goalTitles;
-    }
-
-    public setDate (date: Date) {
-        this.date = date;
-    }
-
-    public getDate (): Date {
-        return this.date;
-    }
-
     private setCompletionState () {
-        if (this.goalsCreated === this.goalsCompleted && this.goalsCreated > 0) {
+        const completedGoals = this.getCompletedGoals();
+        const incompleteGoals = this.getIncompleteGoals();
+        if (completedGoals === this.goals.length && this.goals.length > 0) {
             this.completionState = DayCompletionState.allComplete;
-        } else if (this.goalsCompleted > 0) {
+        } else if (incompleteGoals > 0) {
             this.completionState = DayCompletionState.partiallyComplete;
         } else {
             this.completionState = DayCompletionState.noneStarted;
         }
+    }
+
+    private getCompletedGoals (): number {
+        return this.goals.filter((goal) => goal.currentCompletion === goal.maxCompletion).length;
+    }
+
+    private getIncompleteGoals (): number {
+        return this.goals.filter((goal) => goal.currentCompletion < goal.maxCompletion).length;
     }
 }
