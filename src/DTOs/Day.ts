@@ -9,12 +9,7 @@ export class Day implements IDay {
     public completionState: DayCompletionState;
     public goals: Array<Goal> = [];
 
-    public getCompletionState (): DayCompletionState {
-        this.setCompletionState();
-        return this.completionState;
-    }
-
-    private setCompletionState () {
+    public setCompletionState () {
         const completedGoals = this.getCompletedGoals();
         const incompleteGoals = this.getIncompleteGoals();
         if (completedGoals === this.goals.length && this.goals.length > 0) {

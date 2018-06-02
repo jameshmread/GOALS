@@ -6,6 +6,5 @@ export interface IDay {
     completionState: DayCompletionState;
     goals: Array<Goal>;
 
-    getCompletionState (): DayCompletionState;
-    // setCompletionState (): void;
+    setCompletionState (): void;
 }
