@@ -1,13 +1,7 @@
 import { Component } from "@angular/core";
 import { IonicPage, NavController, NavParams } from "ionic-angular";
 import { DayCompletionState } from "../../enums/DayCompletionState";
-
-/**
- * Generated class for the DaySummaryPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { Goal } from "../../DTOs/Goal";
 
 @Component({
   selector: "page-day-summary",
@@ -16,21 +10,17 @@ import { DayCompletionState } from "../../enums/DayCompletionState";
 export class DaySummaryPage {
 
   public completionState: DayCompletionState;
-  public goalsCreated: number;
-  public goalsCompleted: number;
-  public goalsInProgress: number;
-  public goalTitles: Array<string>;
-  public notStarted: number;
+  public goals: Array<Goal> = [];
   public date: Date;
+  public goalComplete: Array<boolean>;
 
   constructor (public navCtrl: NavController, public navParams: NavParams) {
     this.completionState = this.navParams.get("day").completionState;
-    this.goalsCreated = this.navParams.get("day").goalsCreated;
-    this.goalsCompleted = this.navParams.get("day").goalsCompleted;
-    this.goalsInProgress = this.navParams.get("day").goalsInProgress;
-    this.goalTitles = this.navParams.get("day").goalTitles;
+    this.goals = this.navParams.get("day").goals;
     this.date = this.navParams.get("day").date;
-    this.notStarted = this.goalsCreated - (this.goalsInProgress + this.goalsCompleted);
+    this.goalComplete = this.goals.map((goal) => {
+      return (goal.maxCompletion - goal.currentCompletion) === 0;
+    });
   }
 
   public ionViewDidLoad () {
