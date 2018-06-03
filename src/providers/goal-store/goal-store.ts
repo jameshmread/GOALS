@@ -16,7 +16,6 @@ export class GoalStoreProvider {
         this.days = daysFromStorage;
       }
     });
-    document.addEventListener("pause", this.saveAllToStorageOnExit, false);
   }
 
   public saveNewDay (dayToSave: Day) {
