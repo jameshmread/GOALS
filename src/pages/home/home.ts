@@ -5,8 +5,8 @@ import { GoalDetailsPage } from "../goal-details/goal-details";
 import { GoalStoreProvider } from "../../providers/goal-store/goal-store";
 import { Goal } from "../../DTOs/Goal";
 import { CalendarPage } from "../calendar/calendar";
-import { IDay } from "../../interfaces/IDay";
 import { Day } from "../../DTOs/Day";
+import { ScreenOrientation } from "@ionic-native/screen-orientation";
 
 @Component({
   selector: "page-home",
@@ -14,27 +14,36 @@ import { Day } from "../../DTOs/Day";
 })
 export class HomePage {
 
-  public currentDay: IDay;
+  public currentDay: Day;
 
   constructor (
     public navCtrl: NavController,
     public modalCtrl: ModalController,
     public goalService: GoalStoreProvider,
-    public toast: ToastController
+    public toast: ToastController,
+    public screen: ScreenOrientation
   ) {
   }
 
   public ionViewDidLoad () {
-    this.deleteDB();
     console.log("LOADED home");
     const currentDay = this.getCurrentDay();
     if (currentDay !== void 0 && currentDay !== null) {
       this.currentDay = currentDay;
-      console.log(this.currentDay);
     } else {
       this.createToday();
-      console.log(this.currentDay);
     }
+    console.log(this.currentDay);
+    this.goalService.saveNewDay(currentDay);
+  }
+
+  public ionViewWillEnter () {
+    // this.screen.lock("portrait");
+    // this.screen.unlock();
+  }
+
+  public ionViewWillLeave () {
+    this.goalService.saveNewDay(this.currentDay);
   }
 
   public addGoal (){
@@ -68,7 +77,7 @@ export class HomePage {
   }
 
   public deleteGoal (goal: Goal) {
-    this.currentDay.goals.filter((item) => item !== goal);
+    this.currentDay.goals = this.currentDay.goals.filter((item) => item !== goal);
   }
 
   public showCalendar () {
@@ -103,11 +112,10 @@ export class HomePage {
     toast.present();
   }
 
-  private getCurrentDay (): IDay {
-    return this.goalService.getDays().then((days: Array<IDay>) => {
-      if (days === null) { return void 0;}
-      return days.filter((day: IDay) => day.date.getTime() === new Date().getTime());
-    })[0];
+  private getCurrentDay (): Day {
+    const days = this.goalService.getDays();
+    if (days === null) { return void 0; }
+    return days.filter((day: Day) => day.date.getTime() === new Date().getTime())[0];
   }
 
   private createToday () {
