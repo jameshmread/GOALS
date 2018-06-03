@@ -30,6 +30,7 @@
             [class.all-complete] = "day.completionState === 'all'"
             [class.some-complete] = "day.completionState === 'partial'"
             [class.none-complete] = "day.completionState === 'none'"
+            [class.current-day] = "day === currentDay"
             *ngFor="let day of week"
             (click)="openDaySummary(day)">
             <ion-card class="day"></ion-card>

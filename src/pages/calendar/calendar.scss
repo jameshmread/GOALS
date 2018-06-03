@@ -17,6 +17,11 @@ ion-card-header {
 .none-complete {
     background-color: map-get($colors, danger);
 }
+.current-day {
+    width: 1.5em;
+    height: 1.5em;
+    border:0.25em solid map-get($colors, dark); 
+}
 
 
 .months {

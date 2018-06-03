@@ -16,6 +16,7 @@ export class CalendarPage {
   public weekDays = ["Mon", "Tues", "Wed", "Thurs", "Fri", "Sat", "Sun"];
   public months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Nov", "Dec"];
   public days: Array<Array<Day>>;
+  public currentDay: Day;
 
   constructor (
     public navCtrl: NavController,
@@ -54,7 +55,7 @@ export class CalendarPage {
 
   private setDayInformation () {
     const allDays = this.store.getDays();
-    console.log(allDays);
+    console.table(allDays);
     let savedDaysIndex = 0;
     for (let i = 0; i < 52; i++) {
       for (let j = 0; j < 7; j++) {
@@ -64,9 +65,19 @@ export class CalendarPage {
             this.days[i][j] = allDays[savedDaysIndex];
             this.days[i][j].setCompletionState();
             savedDaysIndex++;
+            this.setCurrentDay(this.days[i][j]);
           }
         }
       }
+    }
+  }
+
+  private setCurrentDay (day: Day) {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    if (day.date.getTime() === today.getTime()) {
+      this.currentDay = day;
+      console.log("current day", this.currentDay);
     }
   }
 }
