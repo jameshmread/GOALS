@@ -11,10 +11,9 @@ export class Day implements IDay {
 
     public setCompletionState () {
         const completedGoals = this.getCompletedGoals();
-        const incompleteGoals = this.getIncompleteGoals();
         if (completedGoals === this.goals.length && this.goals.length > 0) {
             this.completionState = DayCompletionState.allComplete;
-        } else if (incompleteGoals > 0) {
+        } else if (completedGoals > 0) {
             this.completionState = DayCompletionState.partiallyComplete;
         } else {
             this.completionState = DayCompletionState.noneStarted;
@@ -23,9 +22,5 @@ export class Day implements IDay {
 
     private getCompletedGoals (): number {
         return this.goals.filter((goal) => goal.currentCompletion === goal.maxCompletion).length;
-    }
-
-    private getIncompleteGoals (): number {
-        return this.goals.filter((goal) => goal.currentCompletion < goal.maxCompletion).length;
     }
 }
