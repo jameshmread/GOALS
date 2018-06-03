@@ -4,6 +4,7 @@ import { IonicApp, IonicErrorHandler, IonicModule, ToastController } from "ionic
 import { SplashScreen } from "@ionic-native/splash-screen";
 import { StatusBar } from "@ionic-native/status-bar";
 import { IonicStorageModule } from "@ionic/storage";
+import { ScreenOrientation } from "@ionic-native/screen-orientation";
 
 import { MyApp } from "./app.component";
 import { HomePage } from "../pages/home/home";
@@ -43,7 +44,8 @@ import { DaySummaryPage } from "../pages/day-summary/day-summary";
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     GoalStoreProvider,
     ToastController,
-    Calendar
+    Calendar,
+    ScreenOrientation
   ]
 })
 export class AppModule {}
