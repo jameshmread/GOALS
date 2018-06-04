@@ -39,15 +39,16 @@ export class HomePage {
     }
     console.log(this.currentDay);
     this.goalService.saveNewDay(currentDay);
-    this.notifications.displayGenericUnfinished();
   }
 
   public ionViewWillEnter () {
     // this.screen.lock("portrait");
     // this.screen.unlock();
+    this.notifications.cancelAll();
   }
 
   public ionViewWillLeave () {
+    this.notifications.scheduleUnfinishedGoals(this.currentDay.goals);
     this.goalService.saveNewDay(this.currentDay);
   }
 
