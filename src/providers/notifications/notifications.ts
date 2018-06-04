@@ -9,7 +9,7 @@ export class NotificationsProvider {
     console.log("Hello NotificationsProvider Provider");
   }
 
-  public displayNotification () {
+  public displayGenericUnfinished () {
     this.notifications.schedule({
       id: 1,
       text: "You have Unfinished Goals for Today!"

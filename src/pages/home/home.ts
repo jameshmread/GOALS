@@ -8,6 +8,7 @@ import { CalendarPage } from "../calendar/calendar";
 import { Day } from "../../DTOs/Day";
 import { ScreenOrientation } from "@ionic-native/screen-orientation";
 import { DeleteExcuse } from "../../enums/DeleteExcuse";
+import { NotificationsProvider } from "../../providers/notifications/notifications";
 
 @Component({
   selector: "page-home",
@@ -23,7 +24,8 @@ export class HomePage {
     public goalService: GoalStoreProvider,
     public toast: ToastController,
     public screen: ScreenOrientation,
-    public alertControl: AlertController
+    public alertControl: AlertController,
+    public notifications: NotificationsProvider
   ) {
   }
 
@@ -37,6 +39,7 @@ export class HomePage {
     }
     console.log(this.currentDay);
     this.goalService.saveNewDay(currentDay);
+    this.notifications.displayGenericUnfinished();
   }
 
   public ionViewWillEnter () {
