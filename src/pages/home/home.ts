@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { NavController, ModalController, ToastController } from "ionic-angular";
+import { NavController, ModalController, ToastController, AlertController } from "ionic-angular";
 import { AddGoalPage } from "../add-goal/add-goal";
 import { GoalDetailsPage } from "../goal-details/goal-details";
 import { GoalStoreProvider } from "../../providers/goal-store/goal-store";
@@ -7,6 +7,7 @@ import { Goal } from "../../DTOs/Goal";
 import { CalendarPage } from "../calendar/calendar";
 import { Day } from "../../DTOs/Day";
 import { ScreenOrientation } from "@ionic-native/screen-orientation";
+import { DeleteExcuse } from "../../enums/DeleteExcuse";
 
 @Component({
   selector: "page-home",
@@ -21,7 +22,8 @@ export class HomePage {
     public modalCtrl: ModalController,
     public goalService: GoalStoreProvider,
     public toast: ToastController,
-    public screen: ScreenOrientation
+    public screen: ScreenOrientation,
+    public alertControl: AlertController
   ) {
   }
 
@@ -77,7 +79,49 @@ export class HomePage {
   }
 
   public deleteGoal (goal: Goal) {
-    this.currentDay.goals = this.currentDay.goals.filter((item) => item !== goal);
+    const deleteSheet = this.alertControl.create({
+      title: "Reason for Deletion",
+      message: "Why are you deleting this goal?",
+      cssClass: "delete-alert",
+      inputs: [
+        {
+          value: DeleteExcuse.ranOutOfTime,
+          label: DeleteExcuse.ranOutOfTime,
+          type: "checkbox"
+        },
+        {
+          label: DeleteExcuse.didntStart,
+          value: DeleteExcuse.didntStart,
+          type: "checkbox"
+        },
+        {
+          label: DeleteExcuse.tooLazy,
+          value: DeleteExcuse.tooLazy,
+          type: "checkbox"
+        },
+        {
+          label: DeleteExcuse.taskTooBig,
+          value: DeleteExcuse.taskTooBig,
+          type: "checkbox"
+        },
+        {
+          label: DeleteExcuse.otherCommitments,
+          value: DeleteExcuse.otherCommitments,
+          type: "checkbox"
+        }
+      ],
+      buttons: [
+        {
+          cssClass: "delete-alert",
+          text: "DELETE",
+          role: "DELETE",
+          handler: () => {
+            this.currentDay.goals = this.currentDay.goals.filter((item) => item !== goal);
+          }
+        }
+      ]
+    });
+    deleteSheet.present();
   }
 
   public showCalendar () {
