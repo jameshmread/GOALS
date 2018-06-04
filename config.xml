@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="io.ionic.starter" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>TODO</name>
-    <description>An awesome Ionic/Cordova app.</description>
+    <name>My Goals</name>
+    <description>An app to create and track small daily goals.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
-    <content original-src="index.html" src="http://192.168.0.43:8100" />
+    <content original-src="index.html" src="http://192.168.0.74:8100" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -84,5 +84,11 @@
     <allow-navigation href="http://192.168.0.14:8100" />
     <allow-navigation href="http://192.168.0.9:8100" />
     <allow-navigation href="http://192.168.0.43:8100" />
+    <allow-navigation href="http://192.168.0.67:8100" />
+    <allow-navigation href="http://192.168.0.70:8100" />
+    <plugin name="cordova-plugin-calendar" spec="^5.1.0" />
+    <allow-navigation href="http://192.168.0.72:8100" />
+    <allow-navigation href="http://192.168.0.73:8100" />
+    <allow-navigation href="http://192.168.0.74:8100" />
     <engine name="android" spec="7.0.0" />
 </widget>
