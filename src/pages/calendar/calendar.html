@@ -15,13 +15,13 @@
     <ion-card-content>
       <ion-grid>
         <ion-row>
-          <ion-col class="col-md-1 months no-padding" *ngFor="let month of months">
+          <ion-col class="months" *ngFor="let month of months">
             {{month}}
           </ion-col>
         </ion-row>
         <ion-row>
-          <ion-col style="padding-top: 0px;">
-            <ion-row *ngFor="let day of weekDays">
+          <ion-col style="padding-top: 0vh;">
+            <ion-row style="padding: 1vh;" *ngFor="let day of weekDays">
               {{day}}
             </ion-row>
           </ion-col>

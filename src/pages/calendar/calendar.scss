@@ -1,12 +1,12 @@
 ion-card-header {
     text-align: center;
-    font-size: 1em;
+    font-size: 1.5vw;
 }
 
 .day {
-    width: 1.5em;
-    border-radius: 20em;
-    background-color: grey;
+    border-radius: 100%;
+    background-color: grey;    
+    border:0.25vw solid map-get($colors, dark); 
 }
 .all-complete {
     background-color: map-get($colors, secondary);
@@ -18,14 +18,12 @@ ion-card-header {
     background-color: map-get($colors, danger);
 }
 .current-day {
-    width: 1.5em;
-    height: 1.5em;
-    border:0.25em solid map-get($colors, dark); 
+    border-color: map-get($colors, dark); 
 }
 
 
 .months {
-    text-align: left;
+    padding-left: 2.5vw;
 }
 
 .no-padding {
